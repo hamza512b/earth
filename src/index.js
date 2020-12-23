@@ -13,6 +13,10 @@ import light from "./main/light";
 // Meshes
 import earth from "./mesh/earth"
 
+// Helpers
+import helpers from "./helpers";
+scene.add(helpers);
+
 // Nodes
 const spinner = document.querySelector("div.spinner");
 const canvas = document.querySelector("canvas");
@@ -41,6 +45,8 @@ function main() {
 
 // Display
 const orbit = new OrbitControls(camera, canvas);
+orbit.enableDamping = true;
+orbit.rotateSpeed = 0.25;
 orbit.enablePan = false;
 orbit.maxDistance = 10;
 orbit.minDistance = 4;
@@ -52,6 +58,5 @@ const animate = () => {
 
     requestAnimationFrame(animate);
     renderer.render(scene, camera);
+    orbit.update();
 };
-
-main();

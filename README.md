@@ -3,9 +3,9 @@ A website about our planet Earth.
 
 
 ## Usage
-You have to have either [yarn](https://classic.yarnpkg.com/en/docs/install/) to use this website. 
+You have to have [yarn](https://classic.yarnpkg.com/en/docs/install/) to use this website. 
 
-Cd to diratory and run:
+Cd to the diratory you cloned the project to and run:
 ```sh
 yarn install
 ```
