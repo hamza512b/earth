@@ -1,15 +1,15 @@
-const path = require("path")
-const HtmlWebpackPlugin = require("html-webpack-plugin");
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const FriendlyErrorsWebpackPlugin = require("friendly-errors-webpack-plugin");
-const ESLintWebpackPlugin = require("eslint-webpack-plugin");
-const MiniCssExtractPlugin = require("mini-css-extract-plugin")
-const copyWebpackPlugin = require("copy-webpack-plugin")
 
-module.exports = (env) => {
-    let devtool, mode, stats,
-        isProd = env.production !== undefined && env.production === true;
-    if (isProd) {
+
+const path = require('path');
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const CopyPlugin = require('copy-webpack-plugin');
+const BrowserSyncPlugin = require('browser-sync-webpack-plugin')
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+
+module.exports = env => {
+    let devtool, mode, stats;
+    if (env.production !== undefined && env.production === true) {
         devtool = 'hidden-source-map';
         mode = 'production';
         stats = 'none';
@@ -19,95 +19,87 @@ module.exports = (env) => {
         stats = 'minimal';
     }
     return {
-        devtool, mode, stats,
-        entry: path.resolve(__dirname, 'src'),
-        output: {
-            filename: 'main.js',
-            path: path.resolve(__dirname, 'dist'),
-        },
-        devServer: {
-            contentBase: path.resolve(__dirname, 'dist'),
-            open: true,
-            quiet: true
-        },
+        devtool,
+        mode,
+        stats,
         module: {
             rules: [
-                // Babel
+                // JavaScript
                 {
-                    test: /\.m?js$/,
-                    exclude: /node_modules/,
-                    use: {
+                    test: /\.js$/,
+                    include: path.resolve(__dirname, 'src'),
+                    use: [{
                         loader: 'babel-loader',
                         options: {
-                            presets: ['@babel/preset-env']
+                            presets: ["@babel/preset-env"],
+                            plugins: [
+                                "@babel/plugin-proposal-class-properties",
+                                "@babel/plugin-transform-runtime"
+                            ]
                         }
-                    }
-                },
-                // Handlebars
-                {
-                    test: /\.hbs$/,
-                    exclude: /node_modules/,
-                    use: [
-                        {
-                            loader: "handlebars-loader",
-                            options: {
-                                partialDirs: path.resolve(__dirname, "./src/components"),
-
-                            }
-                        }
-                    ],
+                    }],
                 },
                 // Scss
                 {
                     test: /\.s[ac]ss$/i,
-                    exclude: /node_modules/,
+                    include: path.resolve(__dirname, 'src'),
                     use: [
-                        !isProd
-                            ? 'style-loader'
-                            : MiniCssExtractPlugin.loader,
+                        MiniCssExtractPlugin.loader,
                         'css-loader',
                         'sass-loader'
-                    ]
-                },
-                // Files loader 
-                // more infor https://webpack.js.org/loaders/file-loader/
-                {
-                    test: /\.(png|svg|jpg|gif)$/,
-                    exclude: /node_modules/,
-                    use: [
-                        'file-loader',
                     ],
-                    type: 'asset/resource'
                 },
+                // Files
                 {
-                    test: /\.(woff|woff2|eot|ttf|otf)$/,
                     exclude: /node_modules/,
-                    use: [
-                        'file-loader',
-                    ],
-                    type: 'asset/inline'
+                    test: /\.(png|jpe?g|gltf)$/i,
+                    loader: 'file-loader',
+                    options: {
+                        name: "[name].[ext]"
+                    }
                 }
-            ]
+            ],
+        },
+        optimization: {
+            runtimeChunk: 'single',
+            splitChunks: {
+                cacheGroups: {
+                    vendor: {
+                        test: /[\\/]node_modules[\\/]/,
+                        name: 'vendors',
+                        chunks: 'all',
+                    },
+                },
+            },
+        },
+        entry: [
+            path.resolve(__dirname, './src/index.js'),
+        ],
+        output: {
+            path: path.resolve(__dirname, './dist'),
+            filename: '[name].bundle.js'
         },
         plugins: [
-            // Pluging for combining the html and scripts and style links
+            new CopyPlugin({
+                patterns: [{ from: "public", to: "./" }]
+            }),
             new HtmlWebpackPlugin({
-                template: path.resolve(__dirname, 'src/index.hbs'),
-                filename: "index.html"
+                template: path.resolve(__dirname, "./src/index.html"),
+                filename: 'index.html'
+            }),
+            new BrowserSyncPlugin({
+                host: "localhost",
+                port: 3000,
+                server: {
+                    baseDir: [path.resolve(__dirname, './dist')],
+                    open: true
+                },
+                notify: false
             }),
             new CleanWebpackPlugin({
                 cleanStaleWebpackAssets: false
             }),
-            new copyWebpackPlugin({
-                patterns: [{ from: "./public", to: "./" }]
-            }),
-            new ESLintWebpackPlugin(),
-            new FriendlyErrorsWebpackPlugin({
-                compilationSuccessInfo: {
-                    messages: ['The application is running here http://localhost:8080']
-                }
-            }),
             new MiniCssExtractPlugin()
         ]
     }
-}
+};
