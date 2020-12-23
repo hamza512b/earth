@@ -11,17 +11,23 @@ import camera from "./main/camera"
 import light from "./main/light";
 
 // Meshes
-import earth from "./mesh/earth"
+import loadEarth from "./mesh/earth"
 
 // Helpers
-import helpers from "./helpers";
-scene.add(helpers);
+// import helpers from "./helpers";
+// scene.add(helpers);
 
 // Nodes
 const spinner = document.querySelector("div.spinner");
 const canvas = document.querySelector("canvas");
 
 // Main 
+let earth;
+loadEarth()
+    .then(obj => earth = obj)
+    .catch(err => console.log(err))
+    .finally(() => main());
+
 function main() {
     // Add Stuff
     scene.add(light);
