@@ -14,6 +14,7 @@ import light from "./main/light";
 import loadEarth from "./mesh/earth"
 import loadClouds from './mesh/clouds';
 import { Mesh } from 'three';
+import loadAtmosphere from './mesh/atomosphere';
 
 // Helpers
 // import helpers from "./helpers";
@@ -25,17 +26,19 @@ const canvas = document.querySelector("canvas");
 
 // Main 
 let objects = [];
-//Earth, clouds, atompshere
-Promise.all([loadEarth(), loadClouds()])
+//Earth, clouds, atmosphere
+Promise.all([loadEarth(), loadClouds(), loadAtmosphere()])
     .then(objs => objects = objs)
     .catch(err => console.log(err))
     .finally(() => main());
 
 
-let earth, clouds, atompshere;
+let earth, clouds, atmosphere;
 function main() {
+    console.log(objects);
     earth = objects[0];
     clouds = objects[1];
+    atmosphere = objects[2];
 
     // Add Stuff
     scene.add(light);
