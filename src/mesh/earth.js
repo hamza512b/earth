@@ -19,7 +19,7 @@ const loadEarth = () => new Promise(async (resolve, reject) => {
     const emissionTexture = await TextureLoader.loadAsync("./textures/Emission.png")
     earthMaterial.emissiveMap = emissionTexture;
     earthMaterial.emissive = new THREE.Color(222, 169, 6);
-    earthMaterial.emissiveIntensity = 0.0002;
+    earthMaterial.emissiveIntensity = config.emmision || 0.001;
 
 
     earthMaterial.refractionRatio = 1.45;
