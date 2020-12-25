@@ -10,64 +10,111 @@ html {
   box-sizing: border-box;
 }
 
-// SPINNER/LOADER
-.spinner {
-  position: fixed;
-  top: 0;
-  left: 0;
-
-  z-index: 999;
+.container {
+  position: relative;  
   width: 100%;
   height: 100vh;
 
 
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  background-color: #000;
-  color: white;
-
-  &::after {
-    content: "";
-    height: 200px;
-    width: 200px;
-
-    border: 10px solid transparent;
-    border-top-color: #00002f;
-    border-radius: 50%;
-    animation: spinning 1s linear 0s infinite;
-
+  // SPINNER/LOADER
+  .spinner, .start {
     position: absolute;
-    top: 0; left: 0; bottom: 0; right: 0;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
-    margin: auto;
+    flex-direction: column;
 
+    background-color: #000;
+    color: white;
+
+    width: 100%;
+    height: 100vh;
+  }
+
+  .spinner {
+    z-index: 3;
+    &::after {
+      content: "";
+      height: 200px;
+      width: 200px;
+  
+      border: 10px solid transparent;
+      border-top-color: #00002f;
+      border-radius: 50%;
+      animation: spinning 1s linear 0s infinite;
+  
+      position: absolute;
+      top: 0; left: 0; bottom: 0; right: 0;
+  
+      margin: auto;
+    }
+  }
+  .start {
+    z-index: 2;
+    background-color: rgba(0, 0, 0, 0.75);
+    p {  
+      text-shadow: 0 0 2px #fff;
+      font-size: 20px;
+      font-weight: bold;
+      text-align: center;
+      margin: 0 auto;
+      padding: 0 20px;
+      max-width: 700px;
+      margin-bottom: 20px;
+    }
+    
+    button {
+      cursor: pointer;
+      text-shadow: 0 0 4px #fff;
+      opacity: 0.75;
+      background-color: blue;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 10px;
+      &:hover, &:focus {
+        opacity: 1;
+        outline: none;
+      }
+    }
+  }
+
+  // CANVAS
+  canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+
+    cursor: grab;
+  }
+
+
+  // GLODEN PLATTE
+  .golden-platte {
+    display: none;
+    z-index: 1;
+    border-left: #FFB800 solid 20px;
+    border-top: darken(#FFB800, 4) solid 20px;
+    border-bottom: #FFBB00 solid 20px;
+    border-right: darken(#FFB800, 1.2) solid 20px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50px;
+    position: fixed;
+    left: 20px;
+    bottom: 20px;
+    animation: spinning 4s linear 0s infinite;
   }
 }
 
-// CANVAS
-canvas {
-  width: 100%;
-  height: 100vh;
+.show {
+  display: block !important;
 }
-
-
-// GLODEN PLATTE
-.golden-platte {
-  border-left: #FFB800 solid 20px;
-  border-top: darken(#FFB800, 4) solid 20px;
-  border-bottom: #FFBB00 solid 20px;
-  border-right: darken(#FFB800, 1.2) solid 20px;
-  width: 50px;
-  height: 50px;
-  border-radius: 50px;
-  position: fixed;
-  left: 20px;
-  bottom: 20px;
-  animation: spinning 4s linear 0s infinite;
-}
-
 
 @keyframes spinning {
   from {

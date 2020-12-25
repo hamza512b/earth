@@ -11,17 +11,18 @@ const sounds = ["spheres.wav", "volcanoes.wav", "mud.wav", "wind.wav", "crickets
 
 
 let hidden, visibilityChange;
-if (!document.hidden) {
+if (typeof document.hidden !== "undefined") {
+  hidden = "hidden";
   visibilityChange = "visibilitychange";
-} else if (!document.msHidden) {
+} else if (typeof document.msHidden !== "undefined") {
+  hidden = "msHidden";
   visibilityChange = "msvisibilitychange";
-} else if (!document.webkitHidden) {
+} else if (typeof document.webkitHidden !== "undefined") {
+  hidden = "webkitHidden";
   visibilityChange = "webkitvisibilitychange";
 }
 
-window.addEventListener(visibilityChange, () => {
-    audio.pause();
-})
+
 
 
 // Sounds
@@ -29,12 +30,18 @@ const randomSound = () => "./sounds/" + sounds[Math.floor(Math.random() * sounds
 let audio = new Audio(randomSound());
 audio.volume = config.volume || 0.25;
 audio.addEventListener("ended", () => {
-    audio.src = randomSound();
-    audio.load();
-    audio.play();
+  audio.src = randomSound();
+  audio.load();
+  audio.play();
 });
 
 export const playSound = () => {
-    if (!audio.paused) return;
-    audio.play();
+  window.addEventListener(visibilityChange, () => {
+    if (document[hidden]) {
+      audio.pause();
+    } else {
+      audio.play();
+    }
+  });
+  audio.play();
 }

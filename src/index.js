@@ -23,6 +23,7 @@ import { playSound } from './sounds';
 
 // Nodes
 const spinner = document.querySelector("div.spinner");
+const startInfo = document.querySelector("div.start");
 const canvas = document.querySelector("canvas");
 
 // Main 
@@ -51,17 +52,24 @@ function main() {
         camera.updateProjectionMatrix();
         renderer.render(scene, camera);
     });
-    
-    // Play sound when user interact
-    document.documentElement.addEventListener('keydown', playSound);
-    document.documentElement.addEventListener('click', playSound);
-    document.documentElement.addEventListener('touchstart', playSound);
 
     // Display
     spinner.remove();
 
-    // Render
     animate();
+    let hidden = false;
+    document.querySelector("button#start").addEventListener("click", ()=>{
+        if (hidden) return;
+
+        hidden = true;
+
+        startInfo.remove()
+    
+        playSound();
+
+        document.querySelector(".golden-platte").classList.add("show");
+    });
+    
 }
 
 
