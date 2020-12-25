@@ -17,8 +17,8 @@ yarn start
 ## Demo
 ![preview](./docs/preview.png)
 
-Dem link: [https://hamzakhuswan.github.io/earth](https://hamzakhuswan.github.io/earth)
+Demo link: [https://hamzakhuswan.github.io/earth](https://hamzakhuswan.github.io/earth)
 
 
 # Credit 
-NASA (textures)
+NASA (texture and sound)
