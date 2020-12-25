@@ -15,7 +15,7 @@ yarn start
 ```
 
 ## Demo
-![preview](./docs/preview.png)
+![preview](./public/images/preview.png)
 
 Demo link: [https://hamzakhuswan.github.io/earth](https://hamzakhuswan.github.io/earth)
 
