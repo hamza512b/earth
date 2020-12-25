@@ -13,8 +13,9 @@ import light from "./main/light";
 // Meshes
 import loadEarth from "./mesh/earth"
 import loadClouds from './mesh/clouds';
-import { Mesh } from 'three';
 import loadAtmosphere from './mesh/atomosphere';
+import './sounds';
+import { playSound } from './sounds';
 
 // Helpers
 // import helpers from "./helpers";
@@ -35,7 +36,6 @@ Promise.all([loadEarth(), loadClouds(), loadAtmosphere()])
 
 let earth, clouds, atmosphere;
 function main() {
-    console.log(objects);
     earth = objects[0];
     clouds = objects[1];
     atmosphere = objects[2];
@@ -44,18 +44,23 @@ function main() {
     scene.add(light);
     objects.map(obj => scene.add(obj));
 
+
     // Event listners
     window.addEventListener("resize", () => {
         camera.aspect = canvas.clientWidth / canvas.clientHeight;
         camera.updateProjectionMatrix();
         renderer.render(scene, camera);
     });
+    
+    // Play sound when user interact
+    document.documentElement.addEventListener('keydown', playSound);
+    document.documentElement.addEventListener('click', playSound);
+    document.documentElement.addEventListener('touchstart', playSound);
 
     // Display
-    renderer.render(scene, camera);
     spinner.remove();
 
-    // Animation
+    // Render
     animate();
 }
 
@@ -70,9 +75,8 @@ orbit.minDistance = 4;
 
 // Start animation
 const animate = () => {
-    earth.rotation.y += 0.0005;
-    clouds.rotation.y -= 0.002;
-
+    earth.rotation.y += 0.0002;
+    clouds.rotation.y -= 0.0005;
 
     camera.aspect = canvas.clientWidth / canvas.clientHeight;
     camera.updateProjectionMatrix();

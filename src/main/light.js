@@ -1,9 +1,10 @@
 import * as THREE from "three";
+import config from "../../config";
 
 const lightGrup = new THREE.Group();
 
 // Direactional Light
-export const sun = new THREE.DirectionalLight(0xFFFFFF, 5);
+export const sun = new THREE.DirectionalLight(0xFFFFFF, config.sunIntesity || 5);
 sun.castShadow = true;
 sun.shadow.camera.near = 0.1;
 sun.shadow.camera.far = 8;
