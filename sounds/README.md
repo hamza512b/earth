@@ -1,0 +1,1 @@
+The audio was taken from Nasa Webstite [https://voyager.jpl.nasa.gov/golden-record/whats-on-the-record/sounds/](https://voyager.jpl.nasa.gov/golden-record/whats-on-the-record/sounds/)
