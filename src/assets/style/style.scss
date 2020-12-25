@@ -10,6 +10,12 @@ html {
   box-sizing: border-box;
 }
 
+a {
+  text-shadow: none;
+  font-weight: bolder;
+  color: #44f;
+}
+
 .container {
   position: relative;  
   width: 100%;
@@ -84,6 +90,7 @@ html {
 
   // CANVAS
   canvas {
+    filter: blur(5px);
     position: absolute;
     top: 0;
     left: 0;

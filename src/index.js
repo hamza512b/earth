@@ -45,7 +45,6 @@ function main() {
     scene.add(light);
     objects.map(obj => scene.add(obj));
 
-
     // Event listners
     window.addEventListener("resize", () => {
         camera.aspect = canvas.clientWidth / canvas.clientHeight;
@@ -58,18 +57,19 @@ function main() {
 
     animate();
     let hidden = false;
-    document.querySelector("button#start").addEventListener("click", ()=>{
+    document.querySelector("button#start").addEventListener("click", () => {
         if (hidden) return;
 
         hidden = true;
 
         startInfo.remove()
-    
+
         playSound();
 
         document.querySelector(".golden-platte").classList.add("show");
+        canvas.style = "filter: none";
     });
-    
+
 }
 
 
