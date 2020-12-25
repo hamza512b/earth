@@ -15,7 +15,7 @@ import loadEarth from "./mesh/earth"
 import loadClouds from './mesh/clouds';
 import loadAtmosphere from './mesh/atomosphere';
 import './sounds';
-import { playSound } from './sounds';
+import { playSound, sounds } from './sounds';
 
 // Helpers
 // import helpers from "./helpers";
@@ -64,10 +64,11 @@ function main() {
 
         startInfo.remove()
 
-        playSound();
-
+        
         document.querySelector(".golden-platte").classList.add("show");
         canvas.style = "filter: none";
+
+        playSound(0);
     });
 
 }
