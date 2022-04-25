@@ -1,1 +1,0 @@
-The texture was taken from NASA Website: [https://visibleearth.nasa.gov/collection/1484/blue-marble](https://visibleearth.nasa.gov/collection/1484/blue-marble)
