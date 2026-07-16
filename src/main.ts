@@ -38,12 +38,28 @@ function main() {
   scene.add(light);
   objects.forEach((obj) => scene.add(obj));
 
-  // Event listners
-  window.addEventListener("resize", () => {
-    camera.aspect = canvas.clientWidth / canvas.clientHeight;
+  // Keep the camera aspect and drawing buffer in sync with the canvas's
+  // actual displayed size. Using the canvas client size (rather than
+  // window.innerHeight) avoids the mobile "squished" bug where 100vh and
+  // window.innerHeight disagree because of the browser address bar.
+  const resize = () => {
+    const width = canvas.clientWidth;
+    const height = canvas.clientHeight;
+    if (width === 0 || height === 0) return;
+
+    camera.aspect = width / height;
     camera.updateProjectionMatrix();
-    renderer.setSize(canvas.clientWidth, canvas.clientHeight, false);
-  });
+    renderer.setSize(width, height, false);
+  };
+
+  // Event listners
+  window.addEventListener("resize", resize);
+  // Catches the mobile address bar showing/hiding, which resizes the canvas
+  // without always firing a window resize event.
+  new ResizeObserver(resize).observe(canvas);
+
+  // Apply the correct size immediately, before the first frame.
+  resize();
 
   // Display
   spinner.remove();
