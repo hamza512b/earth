@@ -1,6 +1,3 @@
-// Threejs
-import { TrackballControls } from "three/addons/controls/TrackballControls.js";
-
 // Main
 import renderer from "./main/renderer";
 import camera from "./main/camera";
@@ -13,6 +10,7 @@ import "./sounds";
 import { playSound, sounds } from "./sounds";
 import * as THREE from "three";
 import { inject } from "@vercel/analytics";
+import { OrbitControls } from "three/examples/jsm/Addons.js";
 
 // Vercel Web Analytics
 inject();
@@ -58,11 +56,11 @@ function main() {
 }
 
 // Display
-const control = new TrackballControls(camera, canvas);
-// orbit.dam
-// orbit.rotateSpeed = 0.5;
-// orbit.enablePan = false;
-control.dynamicDampingFactor = 0.05;
+const control = new OrbitControls(camera, canvas);
+control.rotateSpeed = 0.5;
+control.enablePan = false;
+control.dampingFactor = 0.1;
+control.enableDamping = true;
 control.maxDistance = 10;
 control.minDistance = 4;
 
