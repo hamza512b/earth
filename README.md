@@ -1,24 +1,25 @@
 # Earth Website
+
 This is a website about our glory planet, Earth.
 
 ## Usage
-You have to have [yarn](https://classic.yarnpkg.com/en/docs/install/) to use this website. 
 
-Cd to the diratory you cloned the project to and run:
+Cd to the directory you just cloned the project to and run:
+
 ```sh
-yarn install
+npm install
 ```
 
 Then run the website:
+
 ```sh
-yarn start
+npm run dev
 ```
 
 ## Demo
+
 ![preview](./public/images/preview.png)
 
-Demo link: [https://hamzakhuswan.github.io/earth](https://hamzakhuswan.github.io/earth)
+# Credits to NASA
 
-
-# Credit 
-NASA (texture and sound)
+NASA is to be credited for the texture and sound assets used in this project.
