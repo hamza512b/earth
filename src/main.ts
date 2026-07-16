@@ -77,7 +77,7 @@ control.rotateSpeed = 0.5;
 control.enablePan = false;
 control.dampingFactor = 0.1;
 control.enableDamping = true;
-control.maxDistance = 10;
+control.maxDistance = 16;
 control.minDistance = 4;
 
 // Start animation
