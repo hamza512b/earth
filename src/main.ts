@@ -12,6 +12,10 @@ import loadAtmosphere from "./mesh/atmosphere";
 import "./sounds";
 import { playSound, sounds } from "./sounds";
 import * as THREE from "three";
+import { inject } from "@vercel/analytics";
+
+// Vercel Web Analytics
+inject();
 
 // Helpers
 // import helpers from "./helpers";
