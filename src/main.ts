@@ -66,13 +66,22 @@ control.dynamicDampingFactor = 0.05;
 control.maxDistance = 10;
 control.minDistance = 4;
 
+// Expose handles so recording scripts can drive a scripted camera orbit.
+// Harmless in production (also handy for debugging in the console).
+(window as { __scene?: unknown }).__scene = { camera, control };
+
 // Start animation
 const cloudsMaterial = atmosphere.material as THREE.ShaderMaterial;
 const playScene = () => {
-  earth.rotation.y += 0.0002;
-  // atmosphere.rotation.y -= 0.0005;
-  // atmosphere.rotation.z -= 0.00025;
-  cloudsMaterial.uniforms.uTime.value += 1;
+  // Recording scripts set window.__freezeAnim to pause the ambient earth spin
+  // and cloud animation so a clip can loop seamlessly (identical first/last
+  // frame). Undefined in production, so normal playback is unaffected.
+  if (!(window as { __freezeAnim?: boolean }).__freezeAnim) {
+    earth.rotation.y += 0.0002;
+    // atmosphere.rotation.y -= 0.0005;
+    // atmosphere.rotation.z -= 0.00025;
+    cloudsMaterial.uniforms.uTime.value += 1;
+  }
 
   control.update();
   renderer.render(scene, camera);
