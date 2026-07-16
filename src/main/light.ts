@@ -1,7 +1,7 @@
 import * as THREE from "three";
 
 // Direactional Light
-export const sun = new THREE.DirectionalLight(0x8888ff, 5);
+export const sun = new THREE.DirectionalLight(0x8888ff, 20);
 sun.shadow.camera.near = 0.1;
 sun.shadow.camera.far = 8;
 sun.position.set(0, 0, 4);

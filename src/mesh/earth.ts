@@ -30,7 +30,7 @@ async function loadEarth() {
 
   earthMaterial.emissiveMap = emissionTexture;
   earthMaterial.emissive = new THREE.Color(222, 169, 6);
-  earthMaterial.emissiveIntensity = 0.0001;
+  earthMaterial.emissiveIntensity = 0.0002;
 
   // earthMaterial.refractionRatio = 1.45;
   return new THREE.Mesh(earthGeometry, earthMaterial);

@@ -164,7 +164,7 @@ const fragmentShader = /* glsl */ `
 `;
 
 async function loadAtmosphere() {
-  const cloudsGeometry = new THREE.SphereGeometry(2 * 1.005, 77, 77);
+  const cloudsGeometry = new THREE.SphereGeometry(2 * 1.001, 77, 77);
 
   const cloudsMaterial = new THREE.ShaderMaterial({
     vertexShader,

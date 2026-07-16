@@ -1,5 +1,5 @@
 // Threejs
-import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
+import { TrackballControls } from "three/addons/controls/TrackballControls.js";
 
 // Main
 import renderer from "./main/renderer";
@@ -54,12 +54,13 @@ function main() {
 }
 
 // Display
-const orbit = new OrbitControls(camera, canvas);
-orbit.enableDamping = true;
-orbit.rotateSpeed = 0.25;
-orbit.enablePan = false;
-orbit.maxDistance = 10;
-orbit.minDistance = 4;
+const control = new TrackballControls(camera, canvas);
+// orbit.dam
+// orbit.rotateSpeed = 0.5;
+// orbit.enablePan = false;
+control.dynamicDampingFactor = 0.05;
+control.maxDistance = 10;
+control.minDistance = 4;
 
 // Start animation
 const cloudsMaterial = atmosphere.material as THREE.ShaderMaterial;
@@ -69,7 +70,7 @@ const playScene = () => {
   // atmosphere.rotation.z -= 0.00025;
   cloudsMaterial.uniforms.uTime.value += 1;
 
-  orbit.update();
+  control.update();
   renderer.render(scene, camera);
   requestAnimationFrame(playScene);
 };

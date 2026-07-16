@@ -7,7 +7,8 @@ const camera = new THREE.PerspectiveCamera(
   1000,
 );
 // camera.position.z = config.cameraFar || 5;
-camera.position.x = 5;
+camera.position.z = 5;
+camera.fov = 30;
 camera.lookAt(0, 0, 0);
 
 export default camera;
