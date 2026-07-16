@@ -103,6 +103,24 @@ a {
   }
 }
 
+.watermark {
+  position: fixed;
+  bottom: 12px;
+  right: 16px;
+  z-index: 10;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 12px;
+  text-decoration: none;
+  text-shadow: 0 0 4px rgba(0, 0, 0, 0.6);
+  letter-spacing: 0.5px;
+  transition: color 0.2s ease;
+}
+
+.watermark:hover,
+.watermark:focus {
+  color: rgba(255, 255, 255, 0.95);
+}
+
 .show {
   display: block !important;
 }
